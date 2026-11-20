@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,viewport-fit=cover"
+    />
+    <title>A Little Birthday Surprise 🎂</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Quicksand:wght@500;700&family=Noto+Sans+Lao+Looped:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/lucide@0.469.0/dist/umd/lucide.min.js"
+      defer
+    ></script>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="fx" aria-hidden="true"></div>
+    <canvas id="cf" aria-hidden="true"></canvas>
+    <main>
+      <header class="sc hero">
+        <span class="ic card"><i data-lucide="cake">🎂</i></span>
+        <h1 class="lao" lang="lo">
+          ຂອງຂວັນເຊີໄພຣສ໌ເລັກໆນ້ອຍໆສຳລັບວັນເກີດຂອງເຈົ້າ!
+        </h1>
+        <p class="gr">Happy Birthday, <span data-name></span>!</p>
+        <p class="gr lao" lang="lo">ສຸກສັນວັນເກີດ ທີ່ຮັກ! ຂອງສັນ.</p>
+        <p class="m lao" lang="lo">
+          ມື້ນີ້ເປັນວັນເກີດຂອງເຈົ້າ.ຂ້ອຍຈື່ງຢາກໃຫ້ຂອງຂວັນພິເສດນີ້ໃຫ້ເຈົ້າ.
+        </p>
+        <ul class="chips" id="chips" aria-label="Kind words"></ul>
+        <div class="row">
+          <button class="btn lao" lang="lo" id="ob">
+            ເປີດຂອງຂວັນເຊີໄພຣສ໌ວັນເກີດຂອງເຈົ້າ ♡</button
+          ><button class="btn g lao" lang="lo" id="hm">ເປີດເພງ ♫</button>
+        </div>
+      </header>
+
+      <section class="sc" id="count" hidden aria-labelledby="t1">
+        <h2 id="t1 lao" lang="lo" class="rv">ນັບຖອຍຫຼັງສູ່ມື້ພິເສດຂອງທີ່ຮັກ</h2>
+        <div
+          class="cd rv"
+          role="timer"
+          aria-label="Time left until the birthday"
+        >
+          <div class="card"><b id="u0">00</b><small>ມື້</small></div>
+          <div class="card"><b id="u1">00</b><small>ຊົ່ວໂມງ</small></div>
+          <div class="card"><b id="u2">00</b><small>ນາທີ</small></div>
+          <div class="card"><b id="u3">00</b><small>ວິນາທີ</small></div>
+        </div>
+        <p
+          class="sg rv"
+          id="cdm"
+          hidden
+          style="font-size: clamp(1.8rem, 7vw, 2.6rem)"
+        >
+          ມື້ນີ້ແລ້ວ — ສຸກສັນວັນເກີດ! <i class="fa-solid fa-cake-candles"></i>
+        </p>
+      </section>
+
+      <section class="sc" id="letter" hidden aria-labelledby="t2">
+        <h2 id="t2 lao" lang="lo" class="rv">
+          ຈົດໝາຍນ້ອຍໆ ເພື່ອທີ່ຮັກໂດຍສະເພາະ <i class="fa-solid fa-envelope"></i>
+        </h2>
+        <div class="rv" id="ev">
+          <button
+            class="env lao"
+            lang="lo"
+            id="env"
+            aria-expanded="false"
+            aria-label="Open your letter"
+          >
+            <i class="eb"></i><i class="pp"></i><i class="ef"></i
+            ><i class="fp"></i><i class="sl">♥</i>
+          </button>
+          <p class="m lao" lang="lo" id="hint">ກົດຊອງຈົດໝາຍເພື່ອເປີດ</p>
+        </div>
+        <article class="paper" id="paper" hidden></article>
+      </section>
+      
+      <section class="sc" id="stories" hidden aria-labelledby="t7">
+        <h2 id="t7" class="rv"><i data-lucide="sparkles" aria-hidden="true"></i> ເລື່ອງລາວນ້ອຍໆຂອງພວກເຮົາ</h2>
+        <p class="m rv">ແຕະທີ່ວົງມົນເພື່ອຮັບຊົມ.</p>
+        <div class="rings rv" id="rings" aria-label="Story circles"></div>
+      </section>
+
+
+      <section class="sc" id="gal" hidden aria-labelledby="t3">
+        <h2 id="t3 lao" lang="lo" class="rv">
+          <i data-lucide="camera"></i> ຄວາມຊົງຈຳທີ່ສວຍງາມ
+        </h2>
+        <div class="gal" id="gr"></div>
+      </section>
+
+      <section class="sc" id="gift" hidden aria-labelledby="t4">
+        <h2 id="t4" class="rv lao" lang="lo">
+          ຍັງມີເຊີໄພຣ໌ອີກຢ່າງໜຶ່ງສຳລັບເຈົ້າ!
+        </h2>
+        <div class="rv" id="gf">
+          <button class="gift" id="gb" aria-label="Open your gift">
+            <svg viewBox="0 0 160 170" aria-hidden="true">
+              <defs>
+                <linearGradient id="ga" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#fbb8d4" />
+                  <stop offset="1" stop-color="#e5669b" />
+                </linearGradient>
+                <linearGradient id="gc" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#fdc9de" />
+                  <stop offset="1" stop-color="#f08ab3" />
+                </linearGradient>
+              </defs>
+              <ellipse
+                cx="80"
+                cy="164"
+                rx="54"
+                ry="5"
+                fill="#d9558c"
+                opacity=".25"
+              />
+              <rect
+                x="24"
+                y="84"
+                width="112"
+                height="76"
+                rx="9"
+                fill="url(#ga)"
+              />
+              <rect x="73" y="84" width="14" height="76" fill="#fff1b0" />
+              <g class="gl">
+                <rect
+                  x="14"
+                  y="62"
+                  width="132"
+                  height="30"
+                  rx="9"
+                  fill="url(#gc)"
+                />
+                <rect x="73" y="62" width="14" height="30" fill="#fff1b0" />
+                <ellipse
+                  cx="60"
+                  cy="52"
+                  rx="22"
+                  ry="12"
+                  transform="rotate(-28 60 52)"
+                  fill="#ffd96b"
+                />
+                <ellipse
+                  cx="100"
+                  cy="52"
+                  rx="22"
+                  ry="12"
+                  transform="rotate(28 100 52)"
+                  fill="#ffd96b"
+                />
+                <circle cx="80" cy="60" r="8" fill="#ffc83d" />
+              </g>
+            </svg>
+          </button>
+        </div>
+        <button class="btn rv lao" lang="lo" id="og">
+          ເປີດຂອງຂວັນຂອງເຈົ້າເລີຍ <i class="fa-solid fa-gift"></i>
+        </button>
+        <p class="msg card" id="msg" hidden></p>
+        <div class="sur" id="sur" hidden>
+          <span class="hg" aria-hidden="true">💖</span>
+          <p
+            class="sg"
+            id="sp"
+            lang="lo"
+            style="font-size: clamp(1.8rem, 7vw, 2.6rem)"
+          ></p>
+          <button class="btn lao" lang="lo" id="cont">ດຳເນີນໄປຕໍ່ ♡</button>
+        </div>
+      </section>
+
+      <section class="sc" id="voice" hidden aria-labelledby="t6">
+        <h2 id="t6" class="rv"><i data-lucide="mic" aria-hidden="true"></i> ຂໍ້ຄວາມສຽງສຳລັບເຈົ້າ</h2>
+        <p class="m rv">ກົດຫຼິ້ນແລ້ວຟັງເດີ້ — ອັນນີ້ຕັ້ງໃຈໃຫ້ເຈົ້າໄດ້ຍິນ.</p>
+        <div class="vc card rv" id="vc">
+          <button class="ib vb" id="vb" aria-label="Play voice message" disabled>
+            <i class="p1" data-lucide="play" aria-hidden="true">▶</i>
+            <i class="p2" data-lucide="pause" aria-hidden="true">⏸</i>
+          </button>
+          <div class="wr">
+            <div class="wv" id="wv" aria-hidden="true"></div>
+            <input class="vs" id="vs" type="range" min="0" max="1000" value="0" aria-label="Seek voice message" disabled />
+          </div>
+          <span class="vt" id="vt">0:00</span>
+        </div>
+        <p class="m" id="vcap"></p>
+        <audio id="vo" preload="metadata"></audio>
+        <button class="btn lao" lang="lo" id="voice-cont">ດຳເນີນໄປຕໍ່ ♡</button>
+      </section>
+
+      <section class="sc" id="fin" hidden aria-labelledby="t5">
+        <h2 id="t5" class="big rv">
+          <span>HAPPY BIRTHDAY,</span>
+          <em><span data-name></span>!</em>
+        </h2>
+                <div class="cake-container" onclick="blowCandle()" title="Click to blow out the candle!">
+          <svg
+                width="220" height="220"
+                viewBox="0 0 120 120"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <!-- Plate -->
+                <ellipse cx="60" cy="105" rx="48" ry="8" fill="#e2e8f0" />
+                <!-- Bottom Cake Layer -->
+                <rect
+                  x="25"
+                  y="75"
+                  width="70"
+                  height="28"
+                  rx="6"
+                  fill="#ff8fa3"
+                />
+                <!-- Bottom Frosting Drip -->
+                <path
+                  d="M25 78 Q32 88 39 78 Q46 88 53 78 Q60 88 67 78 Q74 88 81 78 Q88 88 95 78 L95 75 L25 75 Z"
+                  fill="#fff0f3"
+                />
+                <!-- Top Cake Layer -->
+                <rect
+                  x="35"
+                  y="52"
+                  width="50"
+                  height="23"
+                  rx="5"
+                  fill="#ffb3c1"
+                />
+                <!-- Top Frosting Drip -->
+                <path
+                  d="M35 55 Q41 63 47 55 Q53 63 59 55 Q65 63 71 55 Q77 63 85 55 L85 52 L35 52 Z"
+                  fill="#ffffff"
+                />
+                <!-- Candle -->
+                <rect
+                  x="56"
+                  y="32"
+                  width="8"
+                  height="20"
+                  rx="2"
+                  fill="#4cc9f0"
+                />
+                <line
+                  x1="56"
+                  y1="38"
+                  x2="64"
+                  y2="42"
+                  stroke="#ffffff"
+                  stroke-width="2"
+                />
+                <line
+                  x1="56"
+                  y1="44"
+                  x2="64"
+                  y2="48"
+                  stroke="#ffffff"
+                  stroke-width="2"
+                />
+                <!-- Flickering Flame -->
+                <path
+                  id="candle-flame"
+                  d="M60 14 C65 21 66 27 60 30 C54 27 55 21 60 14 Z"
+                  fill="#ffbe0b"
+                />
+              </svg>
+        </div>
+        <p class="m rv" id="fw"></p>
+        <p
+          class="sg rv"
+          id="fn"
+          style="font-size: clamp(1.6rem, 6vw, 2.2rem); min-height: 2.4rem"
+        ></p>
+        <button class="btn rv lao" lang="lo" id="again">
+          <i data-lucide="sparkles"></i> ຫຼິ້ນເຊີໄພຣ໌ອີກຄັ້ງ
+        </button>
+      </section>
+    </main>
+
+    <dialog class="story-dialog" id="story-dialog" aria-labelledby="story-title">
+      <div class="story-card">
+        <div class="story-progress" id="story-progress" aria-hidden="true"></div>
+        <button class="story-close" id="story-close" type="button" aria-label="Close story">
+          <i data-lucide="x" aria-hidden="true"></i>
+        </button>
+        <h3 class="story-title" id="story-title"></h3>
+        <img class="story-image" id="story-image" alt="" hidden />
+        <p class="story-text" id="story-text"></p>
+        <div class="story-controls">
+          <button class="btn g" lang="lo" id="story-prev" type="button" aria-label="ສະໄລ້ກ່ອນໜ້າ">ກ່ອນໜ້າ</button>
+          <span class="story-count" id="story-count"></span>
+          <button class="btn lao" lang="lo" id="story-next" type="button" aria-label="ສະໄລ້ຕໍ່ໄປ">ຕໍ່ໄປ</button>
+        </div>
+      </div>
+    </dialog>
+    <aside class="mp card" id="mp" aria-label="Birthday music player">
+      <span class="eq" aria-hidden="true"><b></b><b></b><b></b><b></b></span>
+      <span class="mt"
+        ><i data-lucide="music">♫</i>
+        <span id="ms" role="status">ເພງຖືກຢຸດຊົ່ວຄາວ</span></span
+      >
+      <button class="ib" id="pb" aria-label="Play birthday music">
+        <i class="p1" data-lucide="play">▶</i
+        ><i class="p2" data-lucide="pause">⏸</i>
+      </button>
+      <label class="vol"
+        ><i data-lucide="volume-2">🔊</i
+        ><input
+          id="vol"
+          type="range"
+          min="0"
+          max="100"
+          value="60"
+          aria-label="Volume"
+      /></label>
+    </aside>
+
+    <div
+      id="lbx"
+      hidden
+      role="dialog"
+      aria-modal="true"
+      aria-label="Photo viewer"
+    >
+      <button class="lx" id="lc" aria-label="Close photo">
+        <i data-lucide="x" aria-hidden="true"></i></button
+      ><button class="ln" id="l0" aria-label="Previous photo">
+        <i data-lucide="chevron-left" aria-hidden="true"></i>
+      </button>
+      <figure>
+        <img id="li" alt="" />
+        <figcaption id="lt"></figcaption>
+      </figure>
+      <button class="ln" id="l1" aria-label="Next photo">
+        <i data-lucide="chevron-right" aria-hidden="true"></i>
+      </button>
+    </div>
+    <iframe
+      id="yt"
+      title="Birthday music"
+      allow="autoplay; encrypted-media"
+      tabindex="-1"
+      aria-hidden="true"
+    ></iframe>
+    <script>
+      function blowCandle() {
+        const flame = document.getElementById("candle-flame");
+        flame.classList.toggle("blown-out");
+      }
+    </script>
+    <script src="script.js"></script>
+  </body>
+</html>
